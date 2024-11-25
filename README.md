@@ -1,20 +1,24 @@
 
 # Banking System JDBC PROJECT
 
-There are 4 classes ,The driver class is bankingApp.java will use all the rest of classes.
+![Screenshot 2024-11-20 153223](https://github.com/user-attachments/assets/7d8f7d71-23f6-4748-9018-a14d6c4bf8f2)
+![Screenshot 2024-11-20 152904](https://github.com/user-attachments/assets/013ec0a5-2d42-4ffa-8513-499e55a8d510)
+
+
+There are 4 classes, The driver class is banking app. java, which will use all the rest of the classes.
 
 
 ## Parent class bankingApp.java
 
     Credentials -> Driver Upload -> Connection using credentials ->Statement or preparedStatement->resultSet
 
--Step 1 :  After connection block inside try create instance of all rest classes and pass connection and sccanner as to avoid sab aapne aapna scanner,connection (Learn from hotel managment project) bnay
+-Step 1:  After the connection block inside try to create an instance of all rest classes and pass the connection and scanner to avoid sab aapne aapna scanner, connection (Learn from hotel management project)by
 
     User user = new User(connection,scanner);
     Accounts accounts = new Accounts(connection,scanner);
     AccountManager accountManager = new AccountManager(connection,scanner);
 
-And in very class Create two private initialisation of cnnection and scanner and make a constructor in each of class like:
+In every class Create two private initializations of connection and scanner and make a constructor in each of the classes like:
 
     public class User / Account / AccountManager {
     private Connection connection;
@@ -30,13 +34,13 @@ And in very class Create two private initialisation of cnnection and scanner and
 
 ## User Class
 
-This Class have three functions
+This Class has three functions
 1.login()
 2.register()
      also UserExist()
 
 
--public String login(){ becouse we need to return mail so that it can access by all
+-public String login(){ because we need to return mail so that it can be accessed by all
 
     ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) return resultSet.getString("email");
@@ -46,25 +50,24 @@ This Class have three functions
 
 ## getAccountNumber(String email)
 
-1. return type is long to get account number 
+1. The return type is long to get the account number 
 focus on
 
     if(resultSet.next()){
                 return resultSet.getLong("account_number");
             }
-2. if no return statement we can throw exception
+2. if there is no return statement we can throw an exception
 
         throw new RuntimeException("Account not found");
 ## Account Class
 
 -GenerateAccountnumber()
-AGenda : to fetch the last account number(by query) and increment by one
+Agenda: to fetch the last account number(by query) and increment by one
 
-To gemerate we have query that -> inside accounts table the field account_number we create a decending order format 
+To generate we have a query that -> inside accounts table the field account_number we create a descending order format 
 
 To specify descending order in an SQL query, use the keyword "DESC" after the column name in the "ORDER BY" clause; 
-
-for example: "SELECT * FROM table_name ORDER BY column_name DESC;" will sort the results based on the specified column in descending order 
+For example: "SELECT * FROM table_name ORDER BY column_name DESC;" will sort the results based on the specified column in descending order 
 
     ResultSet resultSet = statement.executeQuery("SELECT account_number FROM accounts ORDER BY account_number DESC LIMIT 1");
         if(resultSet.next()){
@@ -72,26 +75,26 @@ for example: "SELECT * FROM table_name ORDER BY column_name DESC;" will sort the
              return lastAccountNumber+1;
         }else return 10000100;
 
-Limit 1 means only last one element willmove upward and this method will fetch last and increment it and if it is the first enty it will return the else part 
+Limit 1 means generating one element will move upward and this method will fetch the last and increment it if it is the first entry it will return the other part. 
 ## AccountManager Class
 
 1. private void debitMoney()
 
-we are doing transfe handeling so we need to flase the autoCommit 
+we are doing transfer handling so we need to false the auto-commit 
     connection.setAutoCommit(false);
-so until our transection is not completed it will not commit
+so until our transaction is not completed it will not commit
 
 to commit
 
-                    int rowAffected = creditPreparedStatement.executeUpdate();
-                        if(rowAffected > 0){
-                            System.out.println("Debited successfully");
+                    int row affected = creditPreparedStatement.executeUpdate();
+                        if(row affected > 0){
+                            System. out.println("Debited successfully");
                             connection.commit();
                             connection.setAutoCommit(true);
                             return;
                         }
                     else {
-                            System.out.println("Debited failed");
+                            System. out.println("Debited failed");
                             connection.rollback();
                             connection.setAutoCommit(true);
                             return;
@@ -102,7 +105,7 @@ to commit
 
 To format a SQL query to return results in ascending order, use the "ORDER BY" clause with the "ASC" keyword after the column name you want to sort by; 
 
-for example, "SELECT * FROM table_name ORDER BY column_name ASC" will return results with the specified column sorted from lowest to highest value (ascending order). 
+For example, "SELECT * FROM table_name ORDER BY column_name ASC" will return results with the specified column sorted from lowest to highest value (ascending order). 
 
 Key points about ascending order in SQL:
 
@@ -111,7 +114,7 @@ Default behavior: If you don't specify "ASC" in the "ORDER BY" clause, the resul
 Syntax: SELECT * FROM table_name ORDER BY column_name ASC;
 
 
--   Decending order
+-   Descending Order
 
 To specify descending order in an SQL query, use the keyword "DESC" after the column name in the "ORDER BY" clause; for example, "SELECT * FROM table_name ORDER BY column_name DESC;" will sort the results based on the specified column in descending order.
 
@@ -120,15 +123,15 @@ Keyword: "DESC"
 
 Usage: "ORDER BY column_name DESC" 
 
-Function: Sorts data from highest to lowest value (for numeric data) or from Z to A (for text data). 
+Function: Sorts data from the highest to lowest value (for numeric data) or from Z to A (for text data). 
 Example:
 Code
 
 SELECT * FROM customers 
 ORDER BY purchase_amount DESC;
 
-This query will retrieve all customer data from the "customers" table, sorted by their "purchase_amount" in descending order, meaning the customers with the highest purchase amounts will appear first
+This query will retrieve all customer data from the "customers" table, sorted by their "purchase_amount" in descending order, meaning the customers with the highest purchase amounts will appear first.
 
-- if no return statement we can throw exception
+- if there is no return statement we can throw an exception
 
         throw new RuntimeException("Account not found");
