@@ -1,6 +1,7 @@
 
 # Banking System JDBC PROJECT
 
+## Data stored in MySQL
 ![Screenshot 2024-11-20 153223](https://github.com/user-attachments/assets/7d8f7d71-23f6-4748-9018-a14d6c4bf8f2)
 ![Screenshot 2024-11-20 152904](https://github.com/user-attachments/assets/013ec0a5-2d42-4ffa-8513-499e55a8d510)
 
